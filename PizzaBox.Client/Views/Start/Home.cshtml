@@ -1,0 +1,15 @@
+@*@model PizzaBox.Client.Models.StartViewModel*@
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+<p>Are you a User or a Store?</p>
+
+<form action="/user/login">
+  <input type="submit" value="User">
+</form>
+
+<form action="/store/login">
+  <input type="submit" value="Store">
+</form>

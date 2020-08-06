@@ -1,0 +1,20 @@
+@model PizzaBox.Client.Models.UserViewModel
+
+@{
+    ViewData["Title"] = "User Login Page";
+}
+
+<form action="/user/welcome" method="post">
+  <label for="name">Enter name here:</label>
+  <input type="text" name="name" id="name" data-val="true" data-val-required="Needed">
+  @Html.ValidationMessageFor( m => m.Name )
+
+  @foreach (var store in @Model.Stores)
+  {
+    <input type="radio" name="store" id="store" value="@store.Name" data-val="true" data-val-required="Needed">
+    <label for="store">@store.Name</label>
+  }
+  @Html.ValidationMessageFor( m => m.Store )
+
+  <button type="submit">Log in</button>
+</form>

@@ -91,3 +91,14 @@ as a store, i should be able do this:
 + see pizza type, count, revenue by week or by month
 
 > the goal is to try to complete as many reqs as you can in the time alloted. :)
+
+## notes to self
+
++ Need menus for:
+  + Client type selection and name (Need to retrieve stores from DB)
+  + User menu for placing orders and viewing order history
+  + Store menu for viewing and removing orders
+  + Order menu for adding/removing preset/custom pizzas and placing order
++ Pizzas will be created in the database for each order, rather than using presets
++ Implement more testing, primarily with domain
++ Controllers should only handle input/output
