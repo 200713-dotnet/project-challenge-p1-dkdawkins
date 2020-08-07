@@ -8,28 +8,29 @@ namespace PizzaBox.Client.Controllers
   [Route("/[controller]/[action]")]
   public class UserController : Controller
   {
-    private UserRepository repo;
+    private readonly UserRepository _repo;
 
     public UserController(PizzaBoxDbContext dbContext)
     {
-      repo = new UserRepository(dbContext);
+      _repo = new UserRepository(dbContext);
     }
 
     public IActionResult Login()
     {
-      UserViewModel userViewModel = new UserViewModel();  //Should this be done here?
-      userViewModel.Stores = repo.GetStores();
+      UserViewModel userViewModel = new UserViewModel();
+      userViewModel.Stores = _repo.GetStores();
       return View(userViewModel);
     }
 
     [HttpPost]
-    public IActionResult Welcome(UserViewModel userViewModel) //TODO: Fix data loss on bad validation
+    public IActionResult Welcome(UserViewModel userViewModel)
     {
+      
       if (ModelState.IsValid) 
       {
         return View();
       }
-
+      userViewModel.Stores = _repo.GetStores();
       return View("Login", userViewModel);
     }
   }

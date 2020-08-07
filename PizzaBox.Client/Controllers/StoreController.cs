@@ -8,16 +8,18 @@ namespace PizzaBox.Client.Controllers
   [Route("/[controller]/[action]")]
   public class StoreController : Controller
   {
-    private StoreRepository repo;
+    private readonly StoreRepository _repo;
 
     public StoreController(PizzaBoxDbContext dbContext)
     {
-      repo = new StoreRepository(dbContext);
+      _repo = new StoreRepository(dbContext);
     }
 
     public IActionResult Login()
     {
-      return View(new StoreViewModel());
+      StoreViewModel storeViewModel = new StoreViewModel();
+      storeViewModel.Stores = _repo.GetStores();
+      return View(storeViewModel);
     }
 
     [HttpPost]
@@ -28,6 +30,7 @@ namespace PizzaBox.Client.Controllers
         return View();
       }
 
+      storeViewModel.Stores = _repo.GetStores();
       return View("Login", storeViewModel);
     }
   }
