@@ -1,17 +1,18 @@
 using Microsoft.AspNetCore.Mvc;
 using PizzaBox.Client.Models;
 using PizzaBox.Storing;
+using PizzaBox.Storing.Repositories;
 
 namespace PizzaBox.Client.Controllers
 {
   [Route("/[controller]/[action]")]
   public class StoreController : Controller
   {
-    private readonly PizzaBoxDbContext _db;
+    private StoreRepository repo;
 
     public StoreController(PizzaBoxDbContext dbContext)
     {
-      _db = dbContext;
+      repo = new StoreRepository(dbContext);
     }
 
     public IActionResult Login()

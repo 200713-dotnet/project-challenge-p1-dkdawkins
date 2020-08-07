@@ -6,12 +6,12 @@ namespace PizzaBox.Client.Controllers
   [Route("/[controller]/[action]")]
   public class StartController : Controller
   {
-    private readonly PizzaBoxDbContext _db;
+    // private readonly PizzaBoxDbContext _db;
 
-    public StartController(PizzaBoxDbContext dbContext)
-    {
-      _db = dbContext;
-    }
+    // public StartController(PizzaBoxDbContext dbContext)
+    // {
+    //   _db = dbContext;
+    // }
 
     public IActionResult Home()
     {
