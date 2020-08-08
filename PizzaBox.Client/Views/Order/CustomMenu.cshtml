@@ -1,0 +1,34 @@
+@model PizzaBox.Client.Models.CustomPizzaViewModel
+
+@{
+    ViewData["Title"] = "Custom Menu Page";
+}
+
+<form action="/order/addcustom" method="post">
+
+  <p>Select a Crust:</p>
+  @foreach (var c in @Model.Crusts)
+  {
+    <input type="radio" name="crust" id="crust" value="@c.Name" data-val="true" data-val-required="Needed">
+    <label for="crust">@c.Name</label>
+    @Html.ValidationMessageFor( m => m.Crust )
+  }
+
+  <p>Select a Size:</p>
+  @foreach (var s in @Model.Sizes)
+  {
+    <input type="radio" name="size" id="size" value="@s.Name" data-val="true" data-val-required="Needed">
+    <label for="size">@s.Name</label>
+    @Html.ValidationMessageFor( m => m.Size )
+  }
+
+  <p>Select your Toppings:</p>
+  @foreach (var t in @Model.Toppings)
+  {
+    <input type="checkbox" name="selectedtoppings" id="selectedtoppings" value="@t.Name">
+    <label for="selectedtoppings">@t.Name</label>
+    @Html.ValidationMessageFor( m => m.SelectedToppings )
+  }
+
+  <button type="submit">Add Pizza</button>
+</form>

@@ -1,0 +1,19 @@
+@model PizzaBox.Client.Models.PresetPizzaViewModel
+
+@{
+    ViewData["Title"] = "Preset Menu Page";
+}
+
+<form action="/order/addpreset" method="post">
+
+  <p>Select a Pizza to add:</p>
+
+  @foreach (var p in @Model.PresetPizzas)
+  {
+    <input type="radio" name="name" id="name" value="@p.Name" data-val="true" data-val-required="Needed">
+    <label for="name">@p.Name</label>
+    @Html.ValidationMessageFor( m => m.Name )
+  }
+
+  <button type="submit">Add Pizza</button>
+</form>

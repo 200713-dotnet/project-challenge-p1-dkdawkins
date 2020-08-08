@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PizzaBox.Storing;
 
 namespace PizzaBox.Storing.Migrations
 {
     [DbContext(typeof(PizzaBoxDbContext))]
-    partial class PizzaBoxDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200808015249_added preset pizza table")]
+    partial class addedpresetpizzatable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,7 +33,7 @@ namespace PizzaBox.Storing.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Crusts");
+                    b.ToTable("CrustModel");
                 });
 
             modelBuilder.Entity("PizzaBox.Domain.Models.OrderModel", b =>
@@ -101,7 +103,7 @@ namespace PizzaBox.Storing.Migrations
 
                     b.HasIndex("ToppingId");
 
-                    b.ToTable("PizzaToppings");
+                    b.ToTable("PizzaToppingModel");
                 });
 
             modelBuilder.Entity("PizzaBox.Domain.Models.PresetPizzaModel", b =>
@@ -141,7 +143,7 @@ namespace PizzaBox.Storing.Migrations
 
                     b.HasIndex("ToppingId");
 
-                    b.ToTable("PresetToppings");
+                    b.ToTable("PresetToppingModel");
                 });
 
             modelBuilder.Entity("PizzaBox.Domain.Models.SizeModel", b =>
@@ -156,7 +158,7 @@ namespace PizzaBox.Storing.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Sizes");
+                    b.ToTable("SizeModel");
                 });
 
             modelBuilder.Entity("PizzaBox.Domain.Models.StoreModel", b =>
@@ -186,7 +188,7 @@ namespace PizzaBox.Storing.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Toppings");
+                    b.ToTable("ToppingModel");
                 });
 
             modelBuilder.Entity("PizzaBox.Domain.Models.UserModel", b =>

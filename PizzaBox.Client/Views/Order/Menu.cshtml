@@ -4,26 +4,26 @@
     ViewData["Title"] = "Order Menu Page";
 }
 
-<form action="/order/presetpizza">
-  <input type="submit" value="Place an Order">
+<form action="/order/presetmenu">
+  <input type="submit" value="Add a preset pizza">
 </form>
 
-<form action="/order/custompizza">
-  <input type="submit" value="View Order History">
+<form action="/order/custommenu">
+  <input type="submit" value="Add a custom pizza">
 </form>
 
 <form action="/order/removelast">
-  <input type="submit" value="Exit">
+  <input type="submit" value="Remove the last pizza">
 </form>
 
 <form action="/order/checkout">
-  <input type="submit" value="Place an Order">
+  <input type="submit" value="Finish order">
 </form>
 
-@if (Model.Order.Pizzas != null)
+@if (@Model.Order.Pizzas != null)
 {
   <p>Current Pizzas:</p>
-  @foreach (var p in Model.Order.Pizzas)
+  @foreach (var p in @Model.Order.Pizzas)
   {
     <p>@p.Size.Name, @p.Crust.Name, @p.PizzaToppings.Count toppings</p>
   }

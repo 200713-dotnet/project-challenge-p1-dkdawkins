@@ -96,9 +96,9 @@ as a store, i should be able do this:
 
 + Need menus for:
   + (DONE)Client type selection and name (Need to retrieve stores from DB)
-  + User menu for placing orders and viewing order history
+  + (NEEDS TESTING)User menu for placing orders and viewing order history
   + Store menu for viewing and removing orders
-  + Order menu for adding/removing preset/custom pizzas and placing order
+  + (PARTIALLY DONE)Order menu for adding/removing preset/custom pizzas and placing order
 + Pizzas will be created in the database for each order, rather than using presets
 + Implement more testing, primarily with domain
 + Controllers should only handle input/output

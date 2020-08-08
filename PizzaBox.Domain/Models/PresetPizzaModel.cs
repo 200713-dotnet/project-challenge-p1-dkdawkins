@@ -2,9 +2,10 @@ using System.Collections.Generic;
 
 namespace PizzaBox.Domain.Models
 {
-  public class ToppingModel : AModel
+  public class PresetPizzaModel : AModel
   {
-    public List<PizzaToppingModel> PizzaToppings { get; set; }
+    public CrustModel Crust { get; set; }
+    public SizeModel Size { get; set; }
     public List<PresetToppingModel> PresetToppings { get; set; }
   }
 }

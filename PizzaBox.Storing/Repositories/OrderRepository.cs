@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using PizzaBox.Domain.Models;
 
@@ -24,6 +25,26 @@ namespace PizzaBox.Storing.Repositories
       _db.Orders.Add(order);
       _db.SaveChanges();
       return order;
+    }
+
+    public List<PresetPizzaModel> ReadPresetPizzas()
+    {
+      return _db.PresetPizzas.ToList();
+    }
+
+    public List<CrustModel> ReadCrusts()
+    {
+      return _db.Crusts.ToList();
+    }
+
+    public List<SizeModel> ReadSizes()
+    {
+      return _db.Sizes.ToList();
+    }
+
+    public List<ToppingModel> ReadToppings()
+    {
+      return _db.Toppings.ToList();
     }
   }
 }

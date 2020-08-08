@@ -21,7 +21,43 @@ namespace PizzaBox.Client.Controllers
       {
         Order = _repo.Create((int)TempData.Peek("UserId"), (int)TempData.Peek("StoreId"))
       };
+
+      TempData["OrderId"] = orderMenuViewModel.Order.Id;
       return View(orderMenuViewModel);
+    }
+
+    public IActionResult PresetMenu()
+    {
+      PresetPizzaViewModel presetPizzaViewModel = new PresetPizzaViewModel()
+      {
+        PresetPizzas = _repo.ReadPresetPizzas()
+      };
+
+      return View(presetPizzaViewModel);
+    }
+
+    public IActionResult CustomMenu()
+    {
+      CustomPizzaViewModel customPizzaViewModel = new CustomPizzaViewModel()
+      {
+        Crusts = _repo.ReadCrusts(),
+        Sizes = _repo.ReadSizes(),
+        Toppings = _repo.ReadToppings()
+      };
+
+      return View(customPizzaViewModel);
+    }
+
+    [HttpPost]
+    public IActionResult AddPreset(PresetPizzaViewModel presetPizzaViewModel)
+    {
+      return View();  //TODO: create pizza and redirect to order menu
+    }
+
+    [HttpPost]
+    public IActionResult AddCustom(CustomPizzaViewModel customPizzaViewModel)
+    {
+      return View();  //TODO: create pizza and redirect to order menu
     }
   }
 }
