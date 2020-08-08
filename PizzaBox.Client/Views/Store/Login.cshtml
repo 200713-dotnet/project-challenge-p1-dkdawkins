@@ -6,6 +6,8 @@
 
 <form action="/store/welcome" method="post">
 
+  @Html.AntiForgeryToken()
+
   @foreach (var store in @Model.Stores)
   {
     <input type="radio" name="name" id="name" value="@store.Name" data-val="true" data-val-required="Needed">

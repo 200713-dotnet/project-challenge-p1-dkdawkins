@@ -27,6 +27,11 @@ namespace PizzaBox.Storing.Repositories
       return order;
     }
 
+    public OrderModel Read(int id)
+    {
+      return _db.Orders.SingleOrDefault(o => o.Id == id);
+    }
+
     public List<PresetPizzaModel> ReadPresetPizzas()
     {
       return _db.PresetPizzas.ToList();

@@ -5,6 +5,9 @@
 }
 
 <form action="/user/welcome" method="post">
+
+  @Html.AntiForgeryToken()
+
   <label for="name">Enter name here:</label>
   <input type="text" name="name" id="name" data-val="true" data-val-required="Needed">
   @Html.ValidationMessageFor( m => m.Name )

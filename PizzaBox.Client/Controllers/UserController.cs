@@ -26,6 +26,7 @@ namespace PizzaBox.Client.Controllers
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public IActionResult Welcome(UserLoginViewModel userLoginViewModel)
     {
       

@@ -99,6 +99,6 @@ as a store, i should be able do this:
   + (NEEDS TESTING)User menu for placing orders and viewing order history
   + Store menu for viewing and removing orders
   + (PARTIALLY DONE)Order menu for adding/removing preset/custom pizzas and placing order
-+ Pizzas will be created in the database for each order, rather than using presets
++ Pizzas will be created in the database for each order, rather than using presets*
 + Implement more testing, primarily with domain
 + Controllers should only handle input/output

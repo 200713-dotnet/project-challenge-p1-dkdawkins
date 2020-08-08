@@ -15,7 +15,9 @@ namespace PizzaBox.Client.Controllers
       _repo = new OrderRepository(dbContext);
     }
 
-    public IActionResult Menu() //TODO: Make separate menu controller for preexisting order
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Menu()
     {
       OrderMenuViewModel orderMenuViewModel = new OrderMenuViewModel()
       {
@@ -51,13 +53,20 @@ namespace PizzaBox.Client.Controllers
     [HttpPost]
     public IActionResult AddPreset(PresetPizzaViewModel presetPizzaViewModel)
     {
-      return View();  //TODO: create pizza and redirect to order menu
+      //Create Pizza
+      //Return to menu with new OrderMenu
+      OrderMenuViewModel orderMenuViewModel = new OrderMenuViewModel()
+      {
+        Order = _repo.Read((int)TempData.Peek("OrderId"))
+      };
+
+      return View("Menu", orderMenuViewModel);
     }
 
     [HttpPost]
     public IActionResult AddCustom(CustomPizzaViewModel customPizzaViewModel)
     {
-      return View();  //TODO: create pizza and redirect to order menu
+      return View("Menu");  //TODO: create pizza and redirect to order menu
     }
   }
 }

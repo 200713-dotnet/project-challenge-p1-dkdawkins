@@ -23,6 +23,7 @@ namespace PizzaBox.Client.Controllers
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public IActionResult Welcome(StoreLoginViewModel storeLoginViewModel)
     {
       if (ModelState.IsValid) 
