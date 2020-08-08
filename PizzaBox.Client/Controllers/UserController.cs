@@ -17,21 +17,52 @@ namespace PizzaBox.Client.Controllers
 
     public IActionResult Login()
     {
-      UserViewModel userViewModel = new UserViewModel();
-      userViewModel.Stores = _repo.GetStores();
-      return View(userViewModel);
+      UserLoginViewModel userLoginViewModel = new UserLoginViewModel()
+      {
+        Stores = _repo.ReadStores()
+      };
+      
+      return View(userLoginViewModel);
     }
 
     [HttpPost]
-    public IActionResult Welcome(UserViewModel userViewModel)
+    public IActionResult Welcome(UserLoginViewModel userLoginViewModel)
     {
       
       if (ModelState.IsValid) 
       {
-        return View();
+        //Add user to database if they don't already exist
+        if (_repo.Read(userLoginViewModel.Name) == null)
+        {
+          _repo.Create(userLoginViewModel.Name);
+        }
+
+        //Populate ViewModel
+        UserHomeViewModel userHomeViewModel = new UserHomeViewModel()
+        {
+          User = _repo.Read(userLoginViewModel.Name),
+          Store = _repo.ReadStore(userLoginViewModel.Store)
+        };
+
+        //Save IDs for later reference
+        TempData["UserId"] = userHomeViewModel.User.Id;
+        TempData["StoreId"] = userHomeViewModel.Store.Id;
+        return View(userHomeViewModel);
       }
-      userViewModel.Stores = _repo.GetStores();
-      return View("Login", userViewModel);
+
+      userLoginViewModel.Stores = _repo.ReadStores();
+      return View("Login", userLoginViewModel);
+    }
+
+    [HttpGet]
+    public IActionResult History()
+    {
+      UserHistoryViewModel userHistoryViewModel = new UserHistoryViewModel()
+      {
+        User = _repo.Read((int)TempData.Peek("UserId"))
+      };
+
+      return View(userHistoryViewModel);  //Needs testing
     }
   }
 }

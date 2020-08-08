@@ -1,5 +1,20 @@
+@model PizzaBox.Client.Models.UserHomeViewModel
+
 @{
     ViewData["Title"] = "User Welcome Page";
 }
 
-<h1>Welcome User!</h1>
+<h1>Welcome to @Model.Store.Name , @Model.User.Name !</h1>
+<p>What would you like to do?</p>
+
+<form action="/order/menu">
+  <input type="submit" value="Place an Order">
+</form>
+
+<form action="/user/history">
+  <input type="submit" value="View Order History">
+</form>
+
+<form action="/start/home">
+  <input type="submit" value="Exit">
+</form>

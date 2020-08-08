@@ -12,8 +12,13 @@ namespace PizzaBox.Storing.Repositories
     {
       _db = pizzaBoxDbContext;
     }
-    
-    public List<StoreModel> GetStores()
+
+    public StoreModel Read(string name)
+    {
+      return _db.Stores.SingleOrDefault(u => u.Name == name);
+    }
+
+    public List<StoreModel> ReadStores()
     {
       return _db.Stores.ToList();
     }

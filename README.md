@@ -95,7 +95,7 @@ as a store, i should be able do this:
 ## notes to self
 
 + Need menus for:
-  + Client type selection and name (Need to retrieve stores from DB)
+  + (DONE)Client type selection and name (Need to retrieve stores from DB)
   + User menu for placing orders and viewing order history
   + Store menu for viewing and removing orders
   + Order menu for adding/removing preset/custom pizzas and placing order

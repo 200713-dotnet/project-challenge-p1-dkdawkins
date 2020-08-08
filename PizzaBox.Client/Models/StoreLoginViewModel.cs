@@ -1,18 +1,14 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using PizzaBox.Domain.Models;
-using PizzaBox.Storing;
-using PizzaBox.Storing.Repositories;
 
 namespace PizzaBox.Client.Models
 {
-  public class UserViewModel
+  public class StoreLoginViewModel
   {
     public List<StoreModel> Stores { get; set; }
     
-    [Required(ErrorMessage = "Please enter a name.")]
+    [Required(ErrorMessage = "Please enter your store.")]
     public string Name { get; set; }
-    [Required(ErrorMessage = "Please select a store.")]
-    public string Store { get; set; }
   }
 }

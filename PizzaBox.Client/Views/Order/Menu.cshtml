@@ -1,0 +1,35 @@
+@model PizzaBox.Client.Models.OrderMenuViewModel
+
+@{
+    ViewData["Title"] = "Order Menu Page";
+}
+
+<form action="/order/presetpizza">
+  <input type="submit" value="Place an Order">
+</form>
+
+<form action="/order/custompizza">
+  <input type="submit" value="View Order History">
+</form>
+
+<form action="/order/removelast">
+  <input type="submit" value="Exit">
+</form>
+
+<form action="/order/checkout">
+  <input type="submit" value="Place an Order">
+</form>
+
+@if (Model.Order.Pizzas != null)
+{
+  <p>Current Pizzas:</p>
+  @foreach (var p in Model.Order.Pizzas)
+  {
+    <p>@p.Size.Name, @p.Crust.Name, @p.PizzaToppings.Count toppings</p>
+  }
+}
+
+else
+{
+  <p>Your order currently has no pizzas!</p>
+}

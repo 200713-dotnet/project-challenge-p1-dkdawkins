@@ -17,21 +17,27 @@ namespace PizzaBox.Client.Controllers
 
     public IActionResult Login()
     {
-      StoreViewModel storeViewModel = new StoreViewModel();
-      storeViewModel.Stores = _repo.GetStores();
-      return View(storeViewModel);
+      StoreLoginViewModel storeLoginViewModel = new StoreLoginViewModel();
+      storeLoginViewModel.Stores = _repo.ReadStores();
+      return View(storeLoginViewModel);
     }
 
     [HttpPost]
-    public IActionResult Welcome(StoreViewModel storeViewModel)
+    public IActionResult Welcome(StoreLoginViewModel storeLoginViewModel)
     {
       if (ModelState.IsValid) 
       {
-        return View();
+        StoreHomeViewModel storeHomeViewModel = new StoreHomeViewModel()
+        {
+          Store = _repo.Read(storeLoginViewModel.Name)
+        };
+
+        TempData["StoreId"] = storeHomeViewModel.Store.Id;
+        return View(storeHomeViewModel);
       }
 
-      storeViewModel.Stores = _repo.GetStores();
-      return View("Login", storeViewModel);
+      storeLoginViewModel.Stores = _repo.ReadStores();
+      return View("Login", storeLoginViewModel);
     }
   }
 }
