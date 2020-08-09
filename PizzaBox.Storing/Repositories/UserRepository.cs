@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using PizzaBox.Domain.Models;
 
 namespace PizzaBox.Storing.Repositories
@@ -22,13 +23,25 @@ namespace PizzaBox.Storing.Repositories
     //Find first user with given name
     public UserModel Read(string name)
     {
-      return _db.Users.SingleOrDefault(u => u.Name == name);
+      return _db.Users
+        .Where(u => u.Name == name)
+        .Include(u => u.Orders).ThenInclude(o => o.Store)
+        .Include(u => u.Orders).ThenInclude(o => o.Pizzas).ThenInclude(p => p.Size)
+        .Include(u => u.Orders).ThenInclude(o => o.Pizzas).ThenInclude(p => p.Crust)
+        .Include(u => u.Orders).ThenInclude(o => o.Pizzas).ThenInclude(p => p.PizzaToppings).ThenInclude(p => p.Topping)
+        .SingleOrDefault();
     }
 
     //Find user by ID
     public UserModel Read(int id)
     {
-      return _db.Users.SingleOrDefault(u => u.Id == id);
+      return _db.Users
+        .Where(u => u.Id == id)
+        .Include(u => u.Orders).ThenInclude(o => o.Store)
+        .Include(u => u.Orders).ThenInclude(o => o.Pizzas).ThenInclude(p => p.Size)
+        .Include(u => u.Orders).ThenInclude(o => o.Pizzas).ThenInclude(p => p.Crust)
+        .Include(u => u.Orders).ThenInclude(o => o.Pizzas).ThenInclude(p => p.PizzaToppings).ThenInclude(p => p.Topping)
+        .SingleOrDefault();
     }
 
     public List<StoreModel> ReadStores()

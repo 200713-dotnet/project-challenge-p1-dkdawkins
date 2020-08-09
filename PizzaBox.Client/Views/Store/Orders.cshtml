@@ -1,0 +1,32 @@
+@model PizzaBox.Client.Models.StoreOrdersViewModel
+
+@{
+    ViewData["Title"] = "Store Orders Page";
+}
+
+@if (Model.Store.Orders != null)
+{
+  <p>Orders for @Model.Store.Name :</p>
+  @foreach (var o in @Model.Store.Orders) if ((o.User.Name == @Model.UserName) || (@Model.UserName == ""))
+  {
+    <p>@o.Name</p>
+    @foreach (var p in o.Pizzas)
+    {
+      <p>@p.Size.Name, @p.Crust.Name, @p.Name, with:</p>
+      <p>@foreach (var pt in p.PizzaToppings)
+      {
+        @pt.Topping.Name
+      }</p>
+    }
+  }
+}
+
+else
+{
+  <p>You currently have no orders!</p>
+}
+
+<form action="/store/welcomeredirect" method="post">
+  @Html.AntiForgeryToken()
+  <input type="submit" value="Return to menu">
+</form>

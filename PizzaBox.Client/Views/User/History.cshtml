@@ -7,12 +7,16 @@
 @if (Model.User.Orders != null)
 {
   <p>Orders for @Model.User.Name :</p>
-  @foreach (var o in @Model.User.Orders)
+  @foreach (var o in @Model.User.Orders) if (o.Store.Id == (int)TempData.Peek("StoreId"))
   {
     <p>@o.Name, @o.Store.Name</p>
     @foreach (var p in o.Pizzas)
     {
-      <p>@p.Size.Name, @p.Crust.Name, @p.PizzaToppings.Count toppings</p>
+      <p>@p.Size.Name, @p.Crust.Name, @p.Name, with:</p>
+      <p>@foreach (var pt in p.PizzaToppings)
+      {
+        @pt.Topping.Name
+      }</p>
     }
   }
 }
@@ -21,3 +25,8 @@ else
 {
   <p>You currently have no orders!</p>
 }
+
+<form action="/user/welcomeredirect" method="post">
+  @Html.AntiForgeryToken()
+  <input type="submit" value="Return to menu">
+</form>

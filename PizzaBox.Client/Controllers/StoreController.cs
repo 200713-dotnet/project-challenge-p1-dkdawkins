@@ -40,5 +40,35 @@ namespace PizzaBox.Client.Controllers
       storeLoginViewModel.Stores = _repo.ReadStores();
       return View("Login", storeLoginViewModel);
     }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult WelcomeRedirect()
+    {
+      StoreHomeViewModel storeHomeViewModel = new StoreHomeViewModel()
+      {
+        Store = _repo.Read((int)TempData.Peek("StoreId"))
+      };
+
+      return View("Welcome", storeHomeViewModel);
+    }
+
+    [HttpPost]
+    public IActionResult Orders(StoreHomeViewModel storeHomeViewModel)
+    {
+      StoreOrdersViewModel storeOrdersViewModel = new StoreOrdersViewModel()
+      {
+        Store = _repo.Read((int)TempData.Peek("StoreId")),
+        UserName = storeHomeViewModel.Name
+      };
+      return View(storeOrdersViewModel);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult DeleteOrder()
+    {
+      return View();
+    }
   }
 }

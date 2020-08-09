@@ -76,7 +76,7 @@ namespace PizzaBox.Client.Controllers
         User = _repo.Read((int)TempData.Peek("UserId"))
       };
 
-      return View(userHistoryViewModel);  //Needs testing
+      return View(userHistoryViewModel);
     }
   }
 }

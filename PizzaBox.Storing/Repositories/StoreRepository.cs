@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using PizzaBox.Domain.Models;
 
 namespace PizzaBox.Storing.Repositories
@@ -15,7 +16,24 @@ namespace PizzaBox.Storing.Repositories
 
     public StoreModel Read(string name)
     {
-      return _db.Stores.SingleOrDefault(u => u.Name == name);
+      return _db.Stores
+        .Where(s => s.Name == name)
+        .Include(s => s.Orders).ThenInclude(o => o.User)
+        .Include(s => s.Orders).ThenInclude(o => o.Pizzas).ThenInclude(p => p.Size)
+        .Include(s => s.Orders).ThenInclude(o => o.Pizzas).ThenInclude(p => p.Crust)
+        .Include(s => s.Orders).ThenInclude(o => o.Pizzas).ThenInclude(p => p.PizzaToppings).ThenInclude(p => p.Topping)
+        .SingleOrDefault();
+    }
+
+    public StoreModel Read(int id)
+    {
+      return _db.Stores
+        .Where(s => s.Id == id)
+        .Include(s => s.Orders).ThenInclude(o => o.User)
+        .Include(s => s.Orders).ThenInclude(o => o.Pizzas).ThenInclude(p => p.Size)
+        .Include(s => s.Orders).ThenInclude(o => o.Pizzas).ThenInclude(p => p.Crust)
+        .Include(s => s.Orders).ThenInclude(o => o.Pizzas).ThenInclude(p => p.PizzaToppings).ThenInclude(p => p.Topping)
+        .SingleOrDefault();
     }
 
     public List<StoreModel> ReadStores()

@@ -54,32 +54,46 @@ namespace PizzaBox.Client.Controllers
     [ValidateAntiForgeryToken]
     public IActionResult AddPreset(PresetPizzaViewModel presetPizzaViewModel)
     {
-      //Create Pizza
-      _repo.CreatePresetPizza(presetPizzaViewModel.Name, (int)TempData.Peek("OrderId"));
-
-      //Return to menu with new OrderMenu
-      OrderMenuViewModel orderMenuViewModel = new OrderMenuViewModel()
+      if (ModelState.IsValid)
       {
-        Order = _repo.Read((int)TempData.Peek("OrderId"))
-      };
+        //Create Pizza
+        _repo.CreatePresetPizza(presetPizzaViewModel.Name, (int)TempData.Peek("OrderId"));
 
-      return View("Menu", orderMenuViewModel);
+        //Return to menu with new OrderMenu
+        OrderMenuViewModel orderMenuViewModel = new OrderMenuViewModel()
+        {
+          Order = _repo.Read((int)TempData.Peek("OrderId"))
+        };
+
+        return View("Menu", orderMenuViewModel);
+      }
+
+      presetPizzaViewModel.PresetPizzas = _repo.ReadPresetPizzas();
+      return View("PresetMenu", presetPizzaViewModel);
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
     public IActionResult AddCustom(CustomPizzaViewModel customPizzaViewModel)
     {
-      //Create Pizza
-      _repo.CreateCustomPizza(customPizzaViewModel.Crust, customPizzaViewModel.Size, customPizzaViewModel.SelectedToppings, (int)TempData.Peek("OrderId"));
-
-      //Return to menu with new OrderMenu
-      OrderMenuViewModel orderMenuViewModel = new OrderMenuViewModel()
+      if (ModelState.IsValid)
       {
-        Order = _repo.Read((int)TempData.Peek("OrderId"))
-      };
+        //Create Pizza
+        _repo.CreateCustomPizza(customPizzaViewModel.Crust, customPizzaViewModel.Size, customPizzaViewModel.SelectedToppings, (int)TempData.Peek("OrderId"));
 
-      return View("Menu", orderMenuViewModel);
+        //Return to menu with new OrderMenu
+        OrderMenuViewModel orderMenuViewModel = new OrderMenuViewModel()
+        {
+          Order = _repo.Read((int)TempData.Peek("OrderId"))
+        };
+
+        return View("Menu", orderMenuViewModel);
+      }
+      
+      customPizzaViewModel.Crusts = _repo.ReadCrusts();
+      customPizzaViewModel.Sizes = _repo.ReadSizes();
+      customPizzaViewModel.Toppings = _repo.ReadToppings();
+      return View("CustomMenu", customPizzaViewModel);
     }
 
     [HttpPost]

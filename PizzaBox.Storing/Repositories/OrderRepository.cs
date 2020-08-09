@@ -35,7 +35,8 @@ namespace PizzaBox.Storing.Repositories
       {
         Crust = _db.Crusts.SingleOrDefault(c => c.Name == crust),
         Size = _db.Sizes.SingleOrDefault(s => s.Name == size),
-        Order = _db.Orders.SingleOrDefault(o => o.Id == orderId)
+        Order = _db.Orders.SingleOrDefault(o => o.Id == orderId),
+        Name = "Custom"
       };
 
       //Create corresponding PizzaToppings
@@ -64,7 +65,8 @@ namespace PizzaBox.Storing.Repositories
       {
         Crust = preset.Crust,
         Size = preset.Size,
-        Order = _db.Orders.SingleOrDefault(o => o.Id == orderId)
+        Order = _db.Orders.SingleOrDefault(o => o.Id == orderId),
+        Name = preset.Name
       };
 
       foreach (var pt in preset.PresetToppings)

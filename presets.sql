@@ -20,9 +20,6 @@ values
 (3,1),(3,4),(3,5)*/
 
 select *
-from dbo.Stores
-
-select *
 from dbo.Users
 
 select *
@@ -42,6 +39,9 @@ from dbo.Crusts
 
 select *
 from dbo.Orders
+
+select *
+from dbo.Stores
 
 select *
 from dbo.Pizzas
