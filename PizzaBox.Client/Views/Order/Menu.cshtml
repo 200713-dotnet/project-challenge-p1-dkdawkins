@@ -12,8 +12,9 @@
   <input type="submit" value="Add a custom pizza">
 </form>
 
-<form action="/order/removelast">
-  <input type="submit" value="Remove the last pizza">
+<form action="/order/clear" method="post">
+  @Html.AntiForgeryToken()
+  <input type="submit" value="Clear all pizzas">
 </form>
 
 <form action="/order/checkout">

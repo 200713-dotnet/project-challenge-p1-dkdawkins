@@ -1,0 +1,9 @@
+@{
+    ViewData["Title"] = "Checkout Page";
+}
+
+<form action="/user/welcomeredirect" method="post">
+  @Html.AntiForgeryToken()
+  <p>Order Finished!</p>
+  <input type="submit" value="Return to main menu">
+</form>

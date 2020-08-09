@@ -6,6 +6,8 @@
 
 <form action="/order/addpreset" method="post">
 
+  @Html.AntiForgeryToken()
+
   <p>Select a Pizza to add:</p>
 
   @foreach (var p in @Model.PresetPizzas)

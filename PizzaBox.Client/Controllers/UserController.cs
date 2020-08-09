@@ -55,6 +55,19 @@ namespace PizzaBox.Client.Controllers
       return View("Login", userLoginViewModel);
     }
 
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult WelcomeRedirect()
+    {
+      UserHomeViewModel userHomeViewModel = new UserHomeViewModel()
+      {
+        User = _repo.Read((int)TempData.Peek("UserId")),
+        Store = _repo.ReadStore((int)TempData.Peek("StoreId"))
+      };
+
+      return View("Welcome", userHomeViewModel);
+    }
+
     [HttpGet]
     public IActionResult History()
     {

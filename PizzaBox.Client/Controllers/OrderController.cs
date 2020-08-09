@@ -51,9 +51,12 @@ namespace PizzaBox.Client.Controllers
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public IActionResult AddPreset(PresetPizzaViewModel presetPizzaViewModel)
     {
       //Create Pizza
+      _repo.CreatePresetPizza(presetPizzaViewModel.Name, (int)TempData.Peek("OrderId"));
+
       //Return to menu with new OrderMenu
       OrderMenuViewModel orderMenuViewModel = new OrderMenuViewModel()
       {
@@ -64,9 +67,38 @@ namespace PizzaBox.Client.Controllers
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public IActionResult AddCustom(CustomPizzaViewModel customPizzaViewModel)
     {
-      return View("Menu");  //TODO: create pizza and redirect to order menu
+      //Create Pizza
+      _repo.CreateCustomPizza(customPizzaViewModel.Crust, customPizzaViewModel.Size, customPizzaViewModel.SelectedToppings, (int)TempData.Peek("OrderId"));
+
+      //Return to menu with new OrderMenu
+      OrderMenuViewModel orderMenuViewModel = new OrderMenuViewModel()
+      {
+        Order = _repo.Read((int)TempData.Peek("OrderId"))
+      };
+
+      return View("Menu", orderMenuViewModel);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Clear()
+    {
+      _repo.DeletePizzas((int)TempData.Peek("OrderId"));
+
+      OrderMenuViewModel orderMenuViewModel = new OrderMenuViewModel()
+      {
+        Order = _repo.Read((int)TempData.Peek("OrderId"))
+      };
+
+      return View("Menu", orderMenuViewModel);
+    }
+
+    public IActionResult Checkout()
+    {
+      return View();
     }
   }
 }

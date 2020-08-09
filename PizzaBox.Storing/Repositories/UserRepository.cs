@@ -40,5 +40,10 @@ namespace PizzaBox.Storing.Repositories
     {
       return _db.Stores.SingleOrDefault(s => s.Name == storeName);
     }
+
+    public StoreModel ReadStore(int storeId)
+    {
+      return _db.Stores.SingleOrDefault(s => s.Id == storeId);
+    }
   }
 }

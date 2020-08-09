@@ -19,14 +19,11 @@ values
 (2,1),(2,2),(2,3),(2,4),
 (3,1),(3,4),(3,5)*/
 
-/*select *
+select *
 from dbo.Stores
 
 select *
 from dbo.Users
-
-select *
-from dbo.Orders
 
 select *
 from dbo.Toppings
@@ -41,4 +38,13 @@ select *
 from dbo.Sizes
 
 select *
-from dbo.Crusts*/
+from dbo.Crusts
+
+select *
+from dbo.Orders
+
+select *
+from dbo.Pizzas
+
+select *
+from dbo.PizzaToppings
