@@ -7,7 +7,7 @@
 @if (Model.Store.Orders != null)
 {
   <p>Orders for @Model.Store.Name :</p>
-  @foreach (var o in @Model.Store.Orders) if ((o.User.Name == @Model.UserName) || (@Model.UserName == ""))
+  @foreach (var o in @Model.Store.Orders) if ((o.User.Name == @Model.UserName) || (@Model.UserName == null))
   {
     <p>@o.Name</p>
     @foreach (var p in o.Pizzas)

@@ -7,7 +7,7 @@
 <h1>Welcome @Model.Store.Name !</h1>
 <p>What would you like to do?</p>
 
-<form action="/store/orders">
+<form action="/store/orders" method="post">
   <label for="name">Enter a name to filter orders by (leave blank to view all orders)</label>
   <input type="text" name="name" id="name">
   <input type="submit" value="View Orders">

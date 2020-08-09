@@ -29,7 +29,7 @@ namespace PizzaBox.Storing.Repositories
         .Include(u => u.Orders).ThenInclude(o => o.Pizzas).ThenInclude(p => p.Size)
         .Include(u => u.Orders).ThenInclude(o => o.Pizzas).ThenInclude(p => p.Crust)
         .Include(u => u.Orders).ThenInclude(o => o.Pizzas).ThenInclude(p => p.PizzaToppings).ThenInclude(p => p.Topping)
-        .SingleOrDefault();
+        .FirstOrDefault();
     }
 
     //Find user by ID
@@ -51,7 +51,7 @@ namespace PizzaBox.Storing.Repositories
 
     public StoreModel ReadStore(string storeName)
     {
-      return _db.Stores.SingleOrDefault(s => s.Name == storeName);
+      return _db.Stores.FirstOrDefault(s => s.Name == storeName);
     }
 
     public StoreModel ReadStore(int storeId)

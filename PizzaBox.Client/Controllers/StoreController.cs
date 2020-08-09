@@ -68,7 +68,16 @@ namespace PizzaBox.Client.Controllers
     [ValidateAntiForgeryToken]
     public IActionResult DeleteOrder()
     {
-      return View();
+      
+      //Verifiy that there are existing orders before attempting to delete
+      if (_repo.ReadOrders((int)TempData.Peek("StoreId"))) _repo.DeleteOldestOrder((int)TempData.Peek("StoreId"));
+
+      StoreHomeViewModel storeHomeViewModel = new StoreHomeViewModel()
+      {
+        Store = _repo.Read((int)TempData.Peek("StoreId"))
+      };
+
+      return View("Welcome", storeHomeViewModel);
     }
   }
 }
