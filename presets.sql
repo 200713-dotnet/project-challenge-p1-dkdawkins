@@ -1,3 +1,5 @@
+/*Commands used in the manual insertion/update of preset data and clearance of test data are saved here.*/
+
 /*insert into dbo.Stores(Name)
 values ('PizzaHut'), ('Dominos')
 
@@ -44,9 +46,6 @@ set Price = 5.00
 where id = 2
 
 select *
-from dbo.Users
-
-select *
 from dbo.Toppings
 
 select *
@@ -62,10 +61,13 @@ select *
 from dbo.Crusts
 
 select *
-from dbo.Orders
+from dbo.Stores
 
 select *
-from dbo.Stores
+from dbo.Users
+
+select *
+from dbo.Orders
 
 select *
 from dbo.Pizzas
@@ -73,8 +75,11 @@ from dbo.Pizzas
 select *
 from dbo.PizzaToppings
 
-truncate table dbo.PresetToppings
-go
+delete from dbo.PizzaToppings
 
-truncate table dbo.PresetPizzas
-go*/
+delete from dbo.Pizzas
+
+delete from dbo.Orders
+
+delete from dbo.Users
+*/

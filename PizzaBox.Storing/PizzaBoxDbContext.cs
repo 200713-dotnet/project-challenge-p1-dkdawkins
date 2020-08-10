@@ -5,7 +5,7 @@ namespace PizzaBox.Storing
 {
   public class PizzaBoxDbContext : DbContext
   {
-    public DbSet<PizzaModel> Pizzas { get; set; } //create table
+    public DbSet<PizzaModel> Pizzas { get; set; }
     public DbSet<PresetPizzaModel> PresetPizzas { get; set; }
     public DbSet<OrderModel> Orders { get; set; }
     public DbSet<UserModel> Users { get; set; }
@@ -16,11 +16,11 @@ namespace PizzaBox.Storing
     public DbSet<PizzaToppingModel> PizzaToppings { get; set; }
     public DbSet<PresetToppingModel> PresetToppings { get; set; }
 
-    public PizzaBoxDbContext(DbContextOptions options) : base(options){} //dependency injection
+    public PizzaBoxDbContext(DbContextOptions options) : base(options){}
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-      builder.Entity<PizzaModel>().HasKey(e => e.Id); //primary key constraints
+      builder.Entity<PizzaModel>().HasKey(e => e.Id);
       builder.Entity<PresetPizzaModel>().HasKey(e => e.Id);
       builder.Entity<CrustModel>().HasKey(e => e.Id);
       builder.Entity<SizeModel>().HasKey(e => e.Id);

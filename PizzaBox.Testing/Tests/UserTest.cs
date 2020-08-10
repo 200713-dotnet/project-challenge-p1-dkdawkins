@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
-using PizzaBox.Client.Models;
 using PizzaBox.Domain.Models;
 using PizzaBox.Storing;
 using PizzaBox.Storing.Repositories;

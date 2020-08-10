@@ -110,7 +110,7 @@ namespace PizzaBox.Storing.Repositories
         .Include(o => o.Store)
         .Include(o => o.Pizzas).ThenInclude(p => p.Crust)
         .Include(o => o.Pizzas).ThenInclude(p => p.Size)
-        .Include(o => o.Pizzas).ThenInclude(p => p.PizzaToppings).ThenInclude(pt => pt.Topping) //Is there a better way to do this?
+        .Include(o => o.Pizzas).ThenInclude(p => p.PizzaToppings).ThenInclude(pt => pt.Topping)
         .SingleOrDefault();
     }
 
