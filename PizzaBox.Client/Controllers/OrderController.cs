@@ -56,13 +56,27 @@ namespace PizzaBox.Client.Controllers
     {
       if (ModelState.IsValid)
       {
-        //Create Pizza
-        _repo.CreatePresetPizza(presetPizzaViewModel.Name, (int)TempData.Peek("OrderId"));
+        //Check that the number of pizzas doesn't exceed 50
+        if (_repo.Read((int)TempData.Peek("OrderId")).Pizzas.Count == 50)
+        {
+          ViewData["Status"] = "Cannot add pizza; number of pizzas in an order cannot exceed 50.";
+        }
 
+        //Check that price doesn't exceed $250
+
+
+        //Create Pizza
+        else 
+        {
+          _repo.CreatePresetPizza(presetPizzaViewModel.Name, (int)TempData.Peek("OrderId"));
+          ViewData["Status"] = "Added new preset pizza!";
+        }
+        
         //Return to menu with new OrderMenu
         OrderMenuViewModel orderMenuViewModel = new OrderMenuViewModel()
         {
-          Order = _repo.Read((int)TempData.Peek("OrderId"))
+          Order = _repo.Read((int)TempData.Peek("OrderId")),
+          Status = (string)ViewData["Status"]
         };
 
         return View("Menu", orderMenuViewModel);
@@ -78,13 +92,24 @@ namespace PizzaBox.Client.Controllers
     {
       if (ModelState.IsValid)
       {
+        
+        if (_repo.Read((int)TempData.Peek("OrderId")).Pizzas.Count == 50)
+        {
+          ViewData["Status"] = "Cannot add pizza; number of pizzas in an order cannot exceed 50.";
+        }
+        
         //Create Pizza
-        _repo.CreateCustomPizza(customPizzaViewModel.Crust, customPizzaViewModel.Size, customPizzaViewModel.SelectedToppings, (int)TempData.Peek("OrderId"));
-
+        else
+        {
+          _repo.CreateCustomPizza(customPizzaViewModel.Crust, customPizzaViewModel.Size, customPizzaViewModel.SelectedToppings, (int)TempData.Peek("OrderId"));
+          ViewData["Status"] = "Added new custom pizza!";
+        }
+        
         //Return to menu with new OrderMenu
         OrderMenuViewModel orderMenuViewModel = new OrderMenuViewModel()
         {
-          Order = _repo.Read((int)TempData.Peek("OrderId"))
+          Order = _repo.Read((int)TempData.Peek("OrderId")),
+          Status = (string)ViewData["Status"]
         };
 
         return View("Menu", orderMenuViewModel);
@@ -101,10 +126,12 @@ namespace PizzaBox.Client.Controllers
     public IActionResult Clear()
     {
       _repo.DeletePizzas((int)TempData.Peek("OrderId"));
+      ViewData["Status"] = "Pizzas removed from order!";
 
       OrderMenuViewModel orderMenuViewModel = new OrderMenuViewModel()
       {
-        Order = _repo.Read((int)TempData.Peek("OrderId"))
+        Order = _repo.Read((int)TempData.Peek("OrderId")),
+        Status = (string)ViewData["Status"]
       };
 
       return View("Menu", orderMenuViewModel);

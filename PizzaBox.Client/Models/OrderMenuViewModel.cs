@@ -5,6 +5,7 @@ namespace PizzaBox.Client.Models
   public class OrderMenuViewModel
   {
     public OrderModel Order { get; set; }
+    public string Status { get; set; }
 
     public decimal ViewPrice(PizzaModel pizza) 
     {
