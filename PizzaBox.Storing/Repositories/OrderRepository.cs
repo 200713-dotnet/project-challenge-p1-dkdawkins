@@ -137,5 +137,88 @@ namespace PizzaBox.Storing.Repositories
     {
       return _db.Toppings.ToList();
     }
+
+    public decimal ReadNewPrice(string name, int orderId)
+    {
+      decimal price = 0.00m;
+
+      OrderModel order = _db.Orders
+        .Where(o => o.Id == orderId)
+        .Include(o => o.Pizzas).ThenInclude(p => p.Size)
+        .Include(o => o.Pizzas).ThenInclude(p => p.Crust)
+        .Include(o => o.Pizzas).ThenInclude(p => p.PizzaToppings).ThenInclude(pt => pt.Topping)
+        .SingleOrDefault();
+
+      PresetPizzaModel presetPizza = _db.PresetPizzas
+        .Where(p => p.Name == name)
+        .Include(p => p.Size)
+        .Include(p => p.Crust)
+        .Include(p => p.PresetToppings).ThenInclude(pt => pt.Topping)
+        .SingleOrDefault();
+
+      //Get the price of the current order
+      foreach (var p in order.Pizzas.ToList())
+      {
+        price += (p.Size.Price + p.Crust.Price);
+        foreach (var pt in p.PizzaToppings)
+        {
+          price += pt.Topping.Price;
+        }
+      }
+
+      //Add the price of the pizza to add
+      price += (presetPizza.Size.Price + presetPizza.Crust.Price);
+      foreach (var pt in presetPizza.PresetToppings)
+      {
+        price += pt.Topping.Price;
+      }
+
+      return price;
+    }
+
+    public decimal ReadNewPrice(string crust, string size, List<string> toppings, int orderId)
+    {
+      decimal price = 0.00m;
+
+      OrderModel order = _db.Orders
+        .Where(o => o.Id == orderId)
+        .Include(o => o.Pizzas).ThenInclude(p => p.Size)
+        .Include(o => o.Pizzas).ThenInclude(p => p.Crust)
+        .Include(o => o.Pizzas).ThenInclude(p => p.PizzaToppings).ThenInclude(pt => pt.Topping)
+        .SingleOrDefault();
+
+      CrustModel newCrust = _db.Crusts
+        .Where(c => c.Name == crust)
+        .SingleOrDefault();
+
+      SizeModel newSize = _db.Sizes
+        .Where(s => s.Name == size)
+        .SingleOrDefault();
+
+      List<ToppingModel> newToppings = new List<ToppingModel>();
+      foreach (var topping in toppings)
+      {
+        newToppings.Add(_db.Toppings.Where(t => t.Name == topping).SingleOrDefault());
+      }
+
+      //Get the price of the current order
+      foreach (var p in order.Pizzas.ToList())
+      {
+        price += (p.Size.Price + p.Crust.Price);
+        foreach (var pt in p.PizzaToppings)
+        {
+          price += pt.Topping.Price;
+        }
+      }
+
+      //Add the price of the pizza to add
+      price += (newSize.Price + newCrust.Price);
+      foreach (var t in newToppings)
+      {
+        price += t.Price;
+      }
+
+      return price;
+    }
   }
 }

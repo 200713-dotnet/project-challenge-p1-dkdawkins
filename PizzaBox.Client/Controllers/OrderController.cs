@@ -63,7 +63,10 @@ namespace PizzaBox.Client.Controllers
         }
 
         //Check that price doesn't exceed $250
-
+        else if (_repo.ReadNewPrice(presetPizzaViewModel.Name, (int)TempData.Peek("OrderId")) > 250.00m)
+        {
+          ViewData["Status"] = "Cannot add pizza; price of the order cannot exceed $250";
+        }
 
         //Create Pizza
         else 
@@ -96,6 +99,11 @@ namespace PizzaBox.Client.Controllers
         if (_repo.Read((int)TempData.Peek("OrderId")).Pizzas.Count == 50)
         {
           ViewData["Status"] = "Cannot add pizza; number of pizzas in an order cannot exceed 50.";
+        }
+
+        else if (_repo.ReadNewPrice(customPizzaViewModel.Crust, customPizzaViewModel.Size, customPizzaViewModel.SelectedToppings,(int)TempData.Peek("OrderId")) > 250.00m)
+        {
+          ViewData["Status"] = "Cannot add pizza; price of the order cannot exceed $250";
         }
         
         //Create Pizza
