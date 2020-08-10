@@ -24,10 +24,17 @@
     @Html.ValidationMessageFor( m => m.Size )
   }
 
-  <p>Select your Toppings:</p>
+  <p>Select your Toppings (Cheese and Pepperoni are selected by default):</p>
   @foreach (var t in @Model.Toppings)
   {
-    <input type="checkbox" name="selectedtoppings" id="selectedtoppings" value="@t.Name">
+    @if (t.Name == "Cheese" || t.Name == "Pepperoni")
+    {
+      <input type="checkbox" name="selectedtoppings" id="selectedtoppings" value="@t.Name" checked>
+    }
+    else
+    {
+      <input type="checkbox" name="selectedtoppings" id="selectedtoppings" value="@t.Name">
+    }
     <label for="selectedtoppings">@t.Name (@t.Price)</label>
     @Html.ValidationMessageFor( m => m.SelectedToppings )
   }

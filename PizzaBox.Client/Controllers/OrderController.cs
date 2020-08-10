@@ -96,7 +96,12 @@ namespace PizzaBox.Client.Controllers
       if (ModelState.IsValid)
       {
         
-        if (_repo.Read((int)TempData.Peek("OrderId")).Pizzas.Count == 50)
+        if (customPizzaViewModel.SelectedToppings.Count < 2 || customPizzaViewModel.SelectedToppings.Count > 5)
+        {
+          ViewData["Status"] = "Cannot add pizza; number of toppings must be between 2 and 5";
+        }
+        
+        else if (_repo.Read((int)TempData.Peek("OrderId")).Pizzas.Count == 50)
         {
           ViewData["Status"] = "Cannot add pizza; number of pizzas in an order cannot exceed 50.";
         }
