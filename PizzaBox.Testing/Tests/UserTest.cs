@@ -9,7 +9,7 @@ using Xunit;
 
 namespace PizzaBox.Testing.Tests
 {
-  public class OrderTest
+  public class UserTest
   {
     private static readonly SqliteConnection _connection = new SqliteConnection("Data Source=:memory:");
     private static readonly DbContextOptions<PizzaBoxDbContext> _options = new DbContextOptionsBuilder<PizzaBoxDbContext>().UseSqlite(_connection).Options;
@@ -18,14 +18,13 @@ namespace PizzaBox.Testing.Tests
     {
       new object[]
       {
-        new UserModel(){Id = 1, Name = "test"},
-        new StoreModel(){Id = 1, Name = "store"}
+        new UserModel(){Id = 1, Name = "test"}
       }
     };
 
     [Theory]
     [MemberData(nameof(_records))]
-    public async void Test_Order(UserModel user, StoreModel store)
+    public async void Test_User(UserModel user)
     {
       await _connection.OpenAsync();
 
@@ -35,19 +34,21 @@ namespace PizzaBox.Testing.Tests
         {
           await ctx.Database.EnsureCreatedAsync();
         }
+        
+        using (var ctx = new PizzaBoxDbContext(_options))
+        {
+          UserRepository repo = new UserRepository(ctx);
+          
+          repo.Create(user.Name);
+
+          Assert.NotNull(repo.Read(user.Name));
+        }
 
         using (var ctx = new PizzaBoxDbContext(_options))
         {
-          await ctx.Users.AddAsync(user);
-          await ctx.Stores.AddAsync(store);
-          await ctx.SaveChangesAsync();
+          UserRepository repo = new UserRepository(ctx);
 
-          OrderRepository repo = new OrderRepository(ctx);
-          for (int i=0; i<100; i++)
-          {
-            repo.Create(user.Id, store.Id);
-          }
-          Assert.NotEmpty(await ctx.Orders.ToListAsync());
+          Assert.NotNull(repo.Read(user.Id));
         }
       }
 
