@@ -12,7 +12,7 @@
   @foreach (var c in @Model.Crusts)
   {
     <input type="radio" name="crust" id="crust" value="@c.Name" data-val="true" data-val-required="Needed">
-    <label for="crust">@c.Name</label>
+    <label for="crust">@c.Name (@c.Price)</label>
     @Html.ValidationMessageFor( m => m.Crust )
   }
 
@@ -20,7 +20,7 @@
   @foreach (var s in @Model.Sizes)
   {
     <input type="radio" name="size" id="size" value="@s.Name" data-val="true" data-val-required="Needed">
-    <label for="size">@s.Name</label>
+    <label for="size">@s.Name (@s.Price)</label>
     @Html.ValidationMessageFor( m => m.Size )
   }
 
@@ -28,7 +28,7 @@
   @foreach (var t in @Model.Toppings)
   {
     <input type="checkbox" name="selectedtoppings" id="selectedtoppings" value="@t.Name">
-    <label for="selectedtoppings">@t.Name</label>
+    <label for="selectedtoppings">@t.Name (@t.Price)</label>
     @Html.ValidationMessageFor( m => m.SelectedToppings )
   }
 

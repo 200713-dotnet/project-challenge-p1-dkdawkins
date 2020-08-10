@@ -10,5 +10,18 @@ namespace PizzaBox.Client.Models
 
     [Required(ErrorMessage = "Please select a Pizza.")]
     public string Name { get; set; }
+
+    public decimal ViewPrice(PresetPizzaModel pizza)
+    {
+      decimal price = 0.00m;
+
+      price += (pizza.Crust.Price + pizza.Size.Price);
+      foreach (var pt in pizza.PresetToppings)
+      {
+        price += pt.Topping.Price;
+      }
+
+      return price;
+    }
   }
 }

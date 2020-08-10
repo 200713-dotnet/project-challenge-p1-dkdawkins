@@ -116,7 +116,11 @@ namespace PizzaBox.Storing.Repositories
 
     public List<PresetPizzaModel> ReadPresetPizzas()
     {
-      return _db.PresetPizzas.ToList();
+      return _db.PresetPizzas
+        .Include(p => p.Size)
+        .Include(p => p.Crust)
+        .Include(p => p.PresetToppings).ThenInclude(p => p.Topping)
+        .ToList();
     }
 
     public List<CrustModel> ReadCrusts()

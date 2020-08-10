@@ -16,8 +16,10 @@
       <p>@foreach (var pt in p.PizzaToppings)
       {
         @pt.Topping.Name
-      }</p>
+      }
+      Costs: @Model.ViewPizzaPrice(p)</p>
     }
+    <p>Order Price: @Model.ViewOrderPrice(o)</p>
   }
 }
 

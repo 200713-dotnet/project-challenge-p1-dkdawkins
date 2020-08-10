@@ -13,11 +13,35 @@ values ('Thin'), ('Stuffed')
 insert into dbo.PresetPizzas(CrustId, SizeId, Name)
 values (2, 2, 'Classic'), (2, 2, 'MeatLovers'), (2, 2, 'Hawaiian')
 
-insert into dbo.PresetToppingModel(PresetPizzaId, ToppingId)
+insert into dbo.PresetToppings(PresetPizzaId, ToppingId)
 values 
 (1,1),(1,2),
 (2,1),(2,2),(2,3),(2,4),
-(3,1),(3,4),(3,5)*/
+(3,1),(3,4),(3,5)
+
+update dbo.Toppings
+set Price = 2.00
+where Name = 'Cheese'
+
+update dbo.Toppings
+set Price = 3.00
+where Price = 0.00
+
+update dbo.Sizes
+set Price = 7.00
+where id = 1
+
+update dbo.Sizes
+set Price = 10.00
+where id = 2
+
+update dbo.Crusts
+set Price = 3.00
+where id = 1
+
+update dbo.Crusts
+set Price = 5.00
+where id = 2
 
 select *
 from dbo.Users
@@ -48,3 +72,9 @@ from dbo.Pizzas
 
 select *
 from dbo.PizzaToppings
+
+truncate table dbo.PresetToppings
+go
+
+truncate table dbo.PresetPizzas
+go*/

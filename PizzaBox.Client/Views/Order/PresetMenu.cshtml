@@ -13,7 +13,7 @@
   @foreach (var p in @Model.PresetPizzas)
   {
     <input type="radio" name="name" id="name" value="@p.Name" data-val="true" data-val-required="Needed">
-    <label for="name">@p.Name</label>
+    <label for="name">@p.Name (@Model.ViewPrice(p))</label>
     @Html.ValidationMessageFor( m => m.Name )
   }
 

@@ -26,8 +26,13 @@
   <p>Current Pizzas:</p>
   @foreach (var p in @Model.Order.Pizzas)
   {
-    <p>@p.Size.Name, @p.Crust.Name, @p.PizzaToppings.Count toppings</p>
+    <p>@p.Size.Name, @p.Crust.Name, @p.Name, with:</p>
+    <p>@foreach (var pt in p.PizzaToppings)
+    {
+      @pt.Topping.Name
+    }, Costs: @Model.ViewPrice(p)</p>
   }
+  <p>Total Cost: @Model.ViewTotalPrice()</p>
 }
 
 else
